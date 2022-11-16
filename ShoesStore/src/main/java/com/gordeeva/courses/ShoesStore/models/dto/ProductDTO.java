@@ -5,6 +5,9 @@ import com.gordeeva.courses.ShoesStore.models.CategoryEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 
 @Data
 @NoArgsConstructor
@@ -20,7 +23,10 @@ public class ProductDTO {
     private CategoryEntity size_category;
 
 
-    private String createdAt;
-    private String modifiedAt;
-    private String deletedAt;
+    ///i could change it to date so we would see only date (without time)
+    private Timestamp createdAt;
+    private Timestamp modifiedAt;
+    private Timestamp deletedAt;
 }
+
+

@@ -3,6 +3,8 @@ package com.gordeeva.courses.ShoesStore.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "product")
@@ -26,8 +28,11 @@ public class ProductEntity {
     private CategoryEntity size_category; //hibernate will see in the background that prod_size_category
     // references the table Category
 
-    private String createdAt;
-    private String modifiedAt;
-    private String deletedAt;
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+    @Column(name = "modified_at")
+    private Timestamp modifiedAt;
+    @Column(name = "deleted_at")
+    private Timestamp deletedAt;
 
 }

@@ -17,12 +17,52 @@ CREATE TABLE product(
                         prod_price numeric(6,1) NOT NULL,
                         prod_qty numeric(10) NOT NULL,
                         prod_size_category int,
-                        created_at DATE,
-                        modified_at DATE,
-                        deleted_at DATE,
+                        created_at TIMESTAMP DEFAULT current_timestamp,
+                        modified_at TIMESTAMP,
+                        deleted_at TIMESTAMP,
                         FOREIGN KEY(prod_size_category) REFERENCES category(category_id)
 
 );
+
+-------------UPDATING modified_at and deleted_at columns triggers-----------------
+CREATE TRIGGER update_product_createtime BEFORE INSERT ON product
+    FOR EACH ROW EXECUTE PROCEDURE  update_created_column();
+
+CREATE TRIGGER update_product_modtime BEFORE UPDATE ON product
+    FOR EACH ROW EXECUTE PROCEDURE  update_modified_column();
+
+CREATE TRIGGER update_product_deletetime BEFORE DELETE ON product
+    FOR EACH ROW EXECUTE PROCEDURE  update_deleted_column();
+
+
+CREATE OR REPLACE FUNCTION update_created_column()
+    RETURNS TRIGGER AS $$
+BEGIN
+    NEW.created_at = now();
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+CREATE OR REPLACE FUNCTION update_modified_column()
+    RETURNS TRIGGER AS $$
+BEGIN
+    NEW.modified_at = now();
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+CREATE OR REPLACE FUNCTION update_deleted_column()
+    RETURNS TRIGGER AS $$
+BEGIN
+    NEW.deleted_at = now();
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+
+
+-------------UPDATING modified_at and deleted_at columns triggers-----------------
+
 
 
 --create admin table
@@ -46,15 +86,19 @@ select * from category;
 
 
 --INSERT INTO PRODUCT TABLE
-INSERT INTO product(prod_name, prod_price, prod_qty, prod_size_category, created_at)
-VALUES('Nike Air Zoom G.T.', '170', 54,3,'2022-11-15' );
-INSERT INTO product(prod_name, prod_price, prod_qty, prod_size_category, created_at)
-VALUES('Nike Dunk High Retro', '135', 122,5,'2022-11-15' );
-INSERT INTO product(prod_name, prod_price, prod_qty, prod_size_category, created_at)
-VALUES('Nike Air Jordan 1 Low', '110', 45,2,'2022-11-15' );
-INSERT INTO product(prod_name, prod_price, prod_qty, prod_size_category, created_at)
-VALUES('Nike Air Jordan 6 Retro', '200', 20,4,'2022-11-15' );
+INSERT INTO product(prod_name, prod_price, prod_qty, prod_size_category)
+VALUES('Nike Air Zoom G.T.', '170', 54,3);
+INSERT INTO product(prod_name, prod_price, prod_qty, prod_size_category)
+VALUES('Nike Dunk High Retro', '135', 122,5);
+INSERT INTO product(prod_name, prod_price, prod_qty, prod_size_category)
+VALUES('Nike Air Jordan 1 Low', '110', 45,2);
+INSERT INTO product(prod_name, prod_price, prod_qty, prod_size_category)
+VALUES('Nike Air Jordan 6 Retro', '200', 20,4);
 
 select * from product;
+
+
+
+
 
 
