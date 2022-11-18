@@ -6,6 +6,7 @@ import com.gordeeva.courses.ShoesStore.models.dto.ProductDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.print.attribute.standard.PrinterMessageFromOperator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -101,6 +102,32 @@ public class ProductService {
             productDAO.delete(productEntity);
         }else{
             throw new RuntimeException("Couldn't delete the product with id:: " + id +
+                    "\nIt doesn't exist in the database");
+        }
+    }
+
+
+    //Update qty of product after customer added it to the shopping cart ???probably change a little
+    public void updateQtyAfterCustomerAddedProductToCart(Long productId, int itemInCartQty){
+        Optional<ProductEntity> optional = productDAO.findById(productId);
+        ProductEntity productEntity = null;
+        ProductDTO productWithUpdatedQty = new ProductDTO();
+        if(optional.isPresent()){ // check if the product we want to delete is actually in the database
+            productEntity = optional.get();
+
+            int updatedQty =  productEntity.getQty() - itemInCartQty;
+
+            productWithUpdatedQty.setQty(updatedQty);
+            productWithUpdatedQty.setName(productEntity.getName());
+            productWithUpdatedQty.setPrice(productEntity.getPrice());
+
+
+            updateProductById(productId, productWithUpdatedQty);
+
+            // TODO: 11/18/22 try to update with custom query
+            //productDAO.updateProdQty(updatedQty, productId);
+        }else{
+            throw new RuntimeException("Couldn't update the product qty with id:: " + productId +
                     "\nIt doesn't exist in the database");
         }
     }

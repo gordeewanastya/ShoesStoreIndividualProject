@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/admin/products")
-public class ProductController {
+public class AdminProductController {
 
     private final ProductService productService;
 

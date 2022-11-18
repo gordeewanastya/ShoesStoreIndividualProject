@@ -99,6 +99,37 @@ select * from product;
 
 
 
+--create customer table
+create table customer(
+    cust_id SERIAL PRIMARY KEY,
+    cust_name varchar(70),
+    cust_email varchar(65)
+);
+
+
+
+--create order table
+--in entity class order_creation_date will be String
+
+create table order_info(
+    order_id SERIAL PRIMARY KEY,
+    customer_id int,
+    order_total numeric(6,2),
+    order_creation_date varchar(50),
+    FOREIGN KEY(customer_id) REFERENCES customer(cust_id)
+);
+
+
+--create shopping_cart_item table
+
+create table shopping_cart_item(
+    cart_item_id SERIAL PRIMARY KEY,
+    product_id int,
+    cart_item_qty int,
+    cart_item_amount numeric(6,2),
+    order_id int,
+    FOREIGN KEY(order_id) REFERENCES order_info(order_id)
+);
 
 
 
