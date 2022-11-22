@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClientResponseException;
 
 @RestController
 @AllArgsConstructor
@@ -22,6 +23,16 @@ public class ShoppingCartController {
             return new ResponseEntity<>("Successfully added product with id:: "
                     + addProductToCartDTO.getProductId() +
                     " to the ShoppingCart", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    //get all products from shopping cart
+    @GetMapping("/get")
+    public ResponseEntity<Object> getItemsFromShoppingCart(){
+        try {
+            return new ResponseEntity<>(shoppingCartService.getShoppingCartItems(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

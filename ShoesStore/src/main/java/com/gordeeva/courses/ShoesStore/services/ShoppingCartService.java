@@ -10,6 +10,7 @@ import com.gordeeva.courses.ShoesStore.models.dto.AddProductToCartDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -85,5 +86,10 @@ public class ShoppingCartService {
                 optionalProductEntity.get().getPrice() :  -1.0f;
 
         return productPrice;
+    }
+
+    public List<ShoppingCartItemEntity> getShoppingCartItems(){
+        List<ShoppingCartItemEntity> shoppingCartItems = shoppingCartItemDAO.findAll();
+        return shoppingCartItems;
     }
 }

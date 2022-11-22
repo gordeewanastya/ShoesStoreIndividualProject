@@ -10,6 +10,7 @@ import com.gordeeva.courses.ShoesStore.services.CustomerService;
 import com.gordeeva.courses.ShoesStore.services.OrderService;
 import com.gordeeva.courses.ShoesStore.services.ProductService;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,17 @@ public class OrderController {
     private final OrderService orderService;
     private final CustomerService customerService;
     private final ProductService productService;
+
+
+    @GetMapping("/get")
+    public ResponseEntity<Object> getAllOrders(){
+        try {
+            return new ResponseEntity<>(orderService.getAllOrders(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
 
 //
 //    @GetMapping("/get/{id}")

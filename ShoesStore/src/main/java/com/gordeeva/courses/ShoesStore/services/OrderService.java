@@ -6,6 +6,7 @@ import com.gordeeva.courses.ShoesStore.models.OrderEntity;
 import com.gordeeva.courses.ShoesStore.models.ProductEntity;
 import com.gordeeva.courses.ShoesStore.models.ShoppingCartItemEntity;
 import lombok.AllArgsConstructor;
+import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,11 @@ import java.util.Optional;
 public class OrderService {
     private final OrderDAO orderDAO;
     private final ProductDAO productDAO;
+
+    public List<OrderEntity> getAllOrders(){
+        List<OrderEntity> ordersList = orderDAO.findAll();
+        return ordersList;
+    }
 
 //    //change to better return statement
 //    public OrderEntity getOrderDetail(Long orderId) {
