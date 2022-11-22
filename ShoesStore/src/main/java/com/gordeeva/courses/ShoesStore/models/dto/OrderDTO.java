@@ -8,9 +8,9 @@ import java.util.List;
 @Data
 public class OrderDTO {
 
-    private String orderDescription;
-    private List<ShoppingCartItemEntity> cartItems;
-    private String customerEmail;
-    private String customerName;
+    private Long orderId;
+    private Long customerId;
+//    private String customerEmail;
+//    private String customerName;
 
 }

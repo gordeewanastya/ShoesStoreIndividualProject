@@ -25,6 +25,7 @@ public class ShoppingCartItemEntity {
     @Column(name = "cart_item_amount")
     private float AmountOfItemInCart;
 
+
     @Column(name = "order_id")
     private Long orderId;
 }

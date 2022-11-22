@@ -37,6 +37,15 @@ public class OrderController {
 
     }
 
+    @PostMapping("/placeOrder")
+    public ResponseEntity<Object> placeOrder(@RequestBody OrderDTO orderDTO){
+        try {
+            return new ResponseEntity<>(orderService.placeOrder(orderDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 //
 //    @GetMapping("/get/{id}")
 //    public ResponseEntity<Object> getOrderById(@PathVariable Long id){

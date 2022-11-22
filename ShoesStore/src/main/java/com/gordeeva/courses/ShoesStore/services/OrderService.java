@@ -1,10 +1,13 @@
 package com.gordeeva.courses.ShoesStore.services;
 
+import com.gordeeva.courses.ShoesStore.Utils.DateUtil;
 import com.gordeeva.courses.ShoesStore.dao.OrderDAO;
 import com.gordeeva.courses.ShoesStore.dao.ProductDAO;
+import com.gordeeva.courses.ShoesStore.models.CustomerEntity;
 import com.gordeeva.courses.ShoesStore.models.OrderEntity;
 import com.gordeeva.courses.ShoesStore.models.ProductEntity;
 import com.gordeeva.courses.ShoesStore.models.ShoppingCartItemEntity;
+import com.gordeeva.courses.ShoesStore.models.dto.OrderDTO;
 import lombok.AllArgsConstructor;
 import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Service;
@@ -17,11 +20,43 @@ import java.util.Optional;
 public class OrderService {
     private final OrderDAO orderDAO;
     private final ProductDAO productDAO;
+    private final CustomerService customerService;
 
     public List<OrderEntity> getAllOrders(){
         List<OrderEntity> ordersList = orderDAO.findAll();
         return ordersList;
     }
+
+
+    public String placeOrder(OrderDTO orderDTO){
+
+        CustomerEntity customer = customerService.findById(orderDTO.getCustomerId());
+
+        OrderEntity orderEntity = findOrderById(orderDTO.getOrderId());
+
+        orderEntity.setCustomer(customer);
+        orderEntity.setOrderCreationDate(DateUtil.getCurrentDateTime());
+
+        orderDAO.save(orderEntity);
+
+
+        return "Successfully placed an order!";
+
+
+        //calculate the total price of all products in the shopping cart of this order -- ?
+        //if successfully saved order to db then return string that succesfully added
+        //otherwise THROW NEW RUNTIME_EXCEPTION("Couldn't save the order")
+    }
+
+    public OrderEntity findOrderById(Long id){
+        Optional<OrderEntity> orderOptional = orderDAO.findById(id);
+        if (orderOptional.isPresent()){
+            return orderOptional.get();
+        } else {
+            throw new RuntimeException("Couldn't find the order with provided id:: " + id);
+        }
+    }
+
 
 //    //change to better return statement
 //    public OrderEntity getOrderDetail(Long orderId) {
