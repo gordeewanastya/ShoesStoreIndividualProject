@@ -34,7 +34,12 @@ public class OrderService {
 
         OrderEntity orderEntity = findOrderById(orderDTO.getOrderId());
 
+        List<ShoppingCartItemEntity> itemsInCart = orderEntity.getCartItems();
+        float totalPrice = calculateTotalPriceOfOrder(itemsInCart);
+
+
         orderEntity.setCustomer(customer);
+        orderEntity.setTotal(totalPrice);
         orderEntity.setOrderCreationDate(DateUtil.getCurrentDateTime());
 
         orderDAO.save(orderEntity);
@@ -46,6 +51,15 @@ public class OrderService {
         //calculate the total price of all products in the shopping cart of this order -- ?
         //if successfully saved order to db then return string that succesfully added
         //otherwise THROW NEW RUNTIME_EXCEPTION("Couldn't save the order")
+    }
+
+
+    public float calculateTotalPriceOfOrder(List<ShoppingCartItemEntity> itemsInCart){
+        float totalPrice = 0.0f;
+        for (ShoppingCartItemEntity item: itemsInCart){
+            totalPrice = totalPrice + item.getAmountOfItemInCart();
+        }
+        return totalPrice;
     }
 
     public OrderEntity findOrderById(Long id){

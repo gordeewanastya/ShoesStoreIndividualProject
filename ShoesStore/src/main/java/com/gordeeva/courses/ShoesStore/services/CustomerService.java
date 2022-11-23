@@ -24,7 +24,7 @@ public class CustomerService {
             customer.setCustomerName(customerDTO.getName());
             customerDAO.save(customer);
         } catch (Exception e) {
-            throw new RuntimeException("Couldn't save customer with such name: " + customerDTO.getName());
+            throw new RuntimeException("Couldn't save customer with such name:: " + customerDTO.getName());
         }
     };
 
