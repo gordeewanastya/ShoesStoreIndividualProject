@@ -1,0 +1,10 @@
+[ INFO] 2022-11-24 17:33:26,464 c.g.c.S.ShoesStoreProjectApplication [restartedMain] Starting ShoesStoreProjectApplication using Java 15.0.1 on MacBook-Pro-Nastea.local with PID 76839 (/Users/nastea/Documents/IndividualProjectEndava/ShoesStore/target/classes started by nastea in /Users/nastea/Documents/IndividualProjectEndava/ShoesStore)
+[ INFO] 2022-11-24 17:33:26,468 c.g.c.S.ShoesStoreProjectApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+[ INFO] 2022-11-24 17:33:30,851 c.g.c.S.ShoesStoreProjectApplication [restartedMain] Started ShoesStoreProjectApplication in 4.767 seconds (JVM running for 5.888)
+[ INFO] 2022-11-24 17:33:55,048 c.g.c.S.services.ProductService [http-nio-8080-exec-1] Entered method getAllProducts()
+[ INFO] 2022-11-24 17:33:55,313 c.g.c.S.services.ProductService [http-nio-8080-exec-1] Returned list of DTO versions of product
+[ INFO] 2022-11-24 17:34:40,445 c.g.c.S.services.ProductService [http-nio-8080-exec-3] Product with id:: 11 was successfully found.
+[ INFO] 2022-11-24 17:35:49,077 c.g.c.S.services.ProductService [http-nio-8080-exec-7] Entered method getAllProducts()
+[ INFO] 2022-11-24 17:35:49,096 c.g.c.S.services.ProductService [http-nio-8080-exec-7] Returned list of DTO versions of product
+[ INFO] 2022-11-24 17:36:03,897 c.g.c.S.services.ProductService [http-nio-8080-exec-8] Product with id:: 18 was successfully found.
+[ INFO] 2022-11-24 17:37:01,714 c.g.c.S.services.ProductService [http-nio-8080-exec-9] Product with id:: 18 was successfully updated.

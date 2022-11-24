@@ -1,0 +1,5 @@
+[ INFO] 2022-11-24 16:51:02,614 c.g.c.S.ShoesStoreProjectApplication [restartedMain] Starting ShoesStoreProjectApplication using Java 15.0.1 on MacBook-Pro-Nastea.local with PID 75574 (/Users/nastea/Documents/IndividualProjectEndava/ShoesStore/target/classes started by nastea in /Users/nastea/Documents/IndividualProjectEndava/ShoesStore)
+[ INFO] 2022-11-24 16:51:02,617 c.g.c.S.ShoesStoreProjectApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+[ INFO] 2022-11-24 16:51:07,540 c.g.c.S.ShoesStoreProjectApplication [restartedMain] Started ShoesStoreProjectApplication in 5.359 seconds (JVM running for 7.011)
+[ INFO] 2022-11-24 16:51:39,892 c.g.c.S.c.AdminProductController [http-nio-8080-exec-2] Entered getAllProducts method
+[ INFO] 2022-11-24 16:51:39,893 c.g.c.S.c.AdminProductController [http-nio-8080-exec-2] Return as response body list of products

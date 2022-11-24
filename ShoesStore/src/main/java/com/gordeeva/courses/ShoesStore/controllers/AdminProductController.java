@@ -4,9 +4,12 @@ import com.gordeeva.courses.ShoesStore.models.dto.ProductDTO;
 import com.gordeeva.courses.ShoesStore.services.ProductService;
 import lombok.AllArgsConstructor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @AllArgsConstructor
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminProductController {
 
     private final ProductService productService;
+
+    private final Logger logger = LoggerFactory.getLogger(AdminProductController.class);
 
 
     @GetMapping("/get")
@@ -30,6 +35,7 @@ public class AdminProductController {
         try {
             return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error("Product with provided id:: " + id + " doesn't exist");
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

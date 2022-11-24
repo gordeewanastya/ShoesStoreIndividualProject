@@ -4,6 +4,8 @@ import com.gordeeva.courses.ShoesStore.dao.ProductDAO;
 import com.gordeeva.courses.ShoesStore.models.ProductEntity;
 import com.gordeeva.courses.ShoesStore.models.dto.ProductDTO;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.print.attribute.standard.PrinterMessageFromOperator;
@@ -16,10 +18,14 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductDAO productDAO;
+    private final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     //get all existing products from DB
 
     public List<ProductDTO> getAllProducts(){
+
+        logger.info("Entered method getAllProducts()");
+
         List<ProductDTO> products = new ArrayList<>();
         List<ProductEntity> productEntities = productDAO.findAll();
         for(ProductEntity productEntity: productEntities){
@@ -36,6 +42,9 @@ public class ProductService {
             //add to list with DTOs we will return in response body
             products.add(productDTO);
         }
+
+        logger.info("Returned list of DTO versions of product");
+
         return products;
     }
 
@@ -46,6 +55,9 @@ public class ProductService {
         Optional<ProductEntity> optional = productDAO.findById(id);
         ProductEntity productEntity = null;
         if(optional.isPresent()){
+
+            logger.info("Product with id:: " + id+ " was successfully found.");
+
             productEntity = optional.get();
             productDTO.setId(productEntity.getId());
             productDTO.setName(productEntity.getName());
@@ -56,6 +68,9 @@ public class ProductService {
             productDTO.setModifiedAt(productEntity.getModifiedAt());
 
         }else {
+
+            logger.error("Product with id:: " + id+ "doesn't exist in the DB");
+
             throw new RuntimeException("Product not found for an id:: " + id);
         }
 
@@ -70,6 +85,9 @@ public class ProductService {
         newProduct.setPrice(productDTO.getPrice());
         newProduct.setQty(productDTO.getQty());
         newProduct.setSize_category(productDTO.getSize_category());
+
+        logger.debug("Successfully saved new product to the DB");
+
         productDAO.save(newProduct);
     }
 
@@ -85,7 +103,13 @@ public class ProductService {
             productEntity.setPrice(productDTO.getPrice());
             productEntity.setQty(productDTO.getQty());
             productDAO.save(productEntity);
+
+            logger.info("Product with id:: " + id+ " was successfully updated.");
+
         }else{
+
+            logger.error("Product with id:: " + id+ "doesn't exist in the DB");
+
             throw new RuntimeException("Couldn't update the product with id:: " + id +
                     "\nIt doesn't exist in the database");
         }
@@ -100,7 +124,12 @@ public class ProductService {
         if(optional.isPresent()){ // check if the product we want to delete is actually in the database
             productEntity = optional.get();
             productDAO.delete(productEntity);
+
+            logger.debug("Product with id:: " + id+ " was successfully deleted.");
+
         }else{
+            logger.error("Product with id:: " + id+ "doesn't exist in the DB");
+
             throw new RuntimeException("Couldn't delete the product with id:: " + id +
                     "\nIt doesn't exist in the database");
         }
